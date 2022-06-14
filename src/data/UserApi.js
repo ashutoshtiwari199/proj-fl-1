@@ -25,7 +25,7 @@ export default class UserApi {
 	}
 
 	static getUser(id, password, cb) {
-        axios.get(`http://localhost:3001/users?email=${id}&password=${password}`)
+		axios.get(`http://localhost:3001/users?email=${id}&password=${password}`)
         .then(response => cb(response.data[0]))
         .catch(error => { throw error })
 	}

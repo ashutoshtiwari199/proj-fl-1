@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import AboutPage from './components/AboutPage'
+// import AboutPage from './components/AboutPage'
+import HomePage from './components/HomePage';
 import SignInPage from './components/SignInPage'
 import RegisterPage from './components/RegisterPage'
 import ViewProductsPage from './components/ViewProductsPage'
+import CardViewTest from './includes/CardViewTest';
 import TopViewedProductsPage from './components/TopViewedProductsPage'
 import { Suspense, lazy } from 'react'
 import Spinner from 'react-bootstrap/Spinner'
+import About from './components/About';
 //import ProductsDetailsPage from './components/ProductsDetailsPage'
 //import AddNewProductPage from './components/AddNewProductPage'
 //import EditProductPage from './components/EditProductPage'
@@ -16,12 +19,13 @@ import Spinner from 'react-bootstrap/Spinner'
 const ProductsDetailsPage = lazy(() => import('./components/ProductsDetailsPage'))
 const AddNewProductPage = lazy(() => import('./components/AddNewProductPage'))
 const EditProductPage = lazy(() => import('./components/EditProductPage'))
-const UserDetailsPage = lazy(() => import('./components/UserDetailsPage'))
+const UserProfile = lazy(() => import('./components/UserProfile'))
+// const ProdDetailPage = lazy(()=>import('./components/'))
 
 function App() {
   return (
     <Router>
-          <div className="App">
+          <div data-testid="App heropage" className="App heropage">
             <Suspense fallback={
               <h1>Please be patient while we're loading...
                 <Spinner animation="border" role="status">
@@ -29,7 +33,7 @@ function App() {
                 </Spinner>
               </h1>}>
               <Switch>
-                <Route exact path="/" component={AboutPage} />
+                <Route exact path="/" component={HomePage} />
                 <Route exact path="/signIn" component={SignInPage} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/viewProducts" component={ViewProductsPage} />
@@ -37,7 +41,9 @@ function App() {
                 <Route path="/productDetails/:id" component={ProductsDetailsPage} />
                 <Route path="/addNewProduct" component={AddNewProductPage} />
                 <Route path="/editProduct/:id" component={EditProductPage} />
-                <Route path="/userDetails/:id" component={UserDetailsPage} />
+                <Route path="/userDetails/:id" component={UserProfile} />
+                <Route path="/about" component={About} />
+                <Route path="/cardView" component={CardViewTest} />
               </Switch>
             </Suspense>
           </div>

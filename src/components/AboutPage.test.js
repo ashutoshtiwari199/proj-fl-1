@@ -1,32 +1,20 @@
 import React from 'react';
-import { mount,shallow} from 'enzyme';
-import AboutPage from './AboutPage'
-import Header from '../includes/header'
+import { getByTestId, render,screen } from '@testing-library/react';
+import Enzyme, { shallow } from 'enzyme'
+import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom'
+// import { EnzymeAdapter } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16'
+import { toBeInTheDocument } from '@testing-library/jest-dom';
 
-describe('About Page Snapshot', () => {
-    let mountWrapper;
-    beforeEach(() => {
-        mountWrapper = mount(<AboutPage />);
-    });
+import About from './About';
 
-    test('renders correctly', () => {
-        expect(mountWrapper).toMatchSnapshot()
-    })  
-});
+Enzyme.configure({ adapter: new Adapter() })
 
-describe('About Page rendering of elements', () => {
-
-    let shallowWrapper
-
-    beforeEach(() => {
-        shallowWrapper = shallow(<AboutPage/>);
-    });
-
-    it('renders correct heading for About', () => {
-        expect(shallowWrapper.find("h1").render().text()).toEqual("About")
-    })
-
-    it('renders one Header React component', () => {
-        expect(shallowWrapper.find(Header).length).toEqual(1);
-    })
+describe('Test Case For App', () => {
+  it('should render button', () => {
+    const wrapper = shallow(<About />)
+    const Card  = wrapper.find('#about');
+    expect(Card).toHaveLength(1);
+  })
 })

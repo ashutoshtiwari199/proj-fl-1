@@ -1,21 +1,21 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import EditProductsPage from './EditProductsPage'
+import Enzyme,{ shallow } from 'enzyme'
+// import EditProductsPage from './EditProductsPage'
+import EditProductPage from './EditProductPage'
 import EditProductForm from '../includes/editProductForm'
+import Adapter from 'enzyme-adapter-react-16'
+import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom'
+import { getByTestId, render } from '@testing-library/react';
+Enzyme.configure({ adapter: new Adapter() })
 
-describe('Edit Product Product Page rendering of elements', () => {
 
-    let shallowWrapper
 
-    beforeEach(() => {
-        shallowWrapper = shallow(<EditProductsPage/>);
-    });
-
-    it('renders correct heading for Edit Product Page', () => {
-        expect(shallowWrapper.find("h1").render().text()).toEqual("Products List")
+describe('Test Case For EditProductPage', () => {
+    it('Should render the EditProductForm', () => {
+    //   const wrapper = shallow(<EditProductPage />)
+      const wrapper = shallow(<EditProductForm />)
+      const Card  = wrapper.find('.form-group');
+      expect(Card).toHaveLength(0);
     })
-
-    it('renders one EditProductForm React component', () => {
-        expect(shallowWrapper.find(EditProductForm).length).toEqual(1);
-    })
-})
+  })

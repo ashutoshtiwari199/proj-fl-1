@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import ListGroup from 'react-bootstrap/ListGroup'
 
-class UserDetailsPage extends React.Component {
+class UserProfile extends React.Component {
     constructor(props) {
         super(props) 
         this.state = {
@@ -55,4 +55,4 @@ class UserDetailsPage extends React.Component {
         )
     }
 }
-export default UserDetailsPage
+export default UserProfile

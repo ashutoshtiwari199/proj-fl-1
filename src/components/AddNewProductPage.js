@@ -22,13 +22,13 @@ class AddNewProductPage extends React.Component {
     
     render() {
         return (
-            <div>
+            <div className='addProduct pb-5' >
                 <Header />
-                <Container>
+                <Container className='mb-5'>
                     <Row>
                         <Col></Col>
                         <Col xs={5}>
-                            <Card className="text-center mt-5">
+                            <Card className="text-center mt-5 p-5">
                                 <Card.Body>
                                   <Card.Title>Add New Product</Card.Title>
                                   <Card.Text>

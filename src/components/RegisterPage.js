@@ -21,15 +21,15 @@ class RegisterPage extends React.Component {
       }
     render() {
         return (
-            <div>
+            <div className='formm'>
                 <Header />
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col xs={5}>
                             <Card className="text-center mt-5">
-                                <Card.Body>
-                                  <Card.Title>Register</Card.Title>
+                                <Card.Body className='signinform'>
+                                  <Card.Title style={{marginLeft:'150px', fontSize:'1.5rem'}} >Register</Card.Title>
                                   <Card.Text>
                                         <RegistrationForm onSave={this.saveUser} /> 
                                     </Card.Text>

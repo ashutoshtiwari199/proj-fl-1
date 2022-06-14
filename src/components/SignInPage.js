@@ -9,15 +9,15 @@ import SignInForm from '../includes/signInForm'
 
 const SignInPage = () => {
     return(
-        <div>
+        <div className='formm'>
             <Header />
             <Container className="mt-5 bt-5">
                 <Row>
                   <Col></Col>
-                  <Col xs={5}>
+                  <Col xs={5} className="">
                       <Card className="text-center mt-5">
-                          <Card.Body>
-                            <Card.Title>Sign In</Card.Title>
+                          <Card.Body className='signinform'>
+                            <Card.Title style={{marginLeft:'150px', fontSize:'1.5rem'}}>Sign In</Card.Title>
                             <Card.Text>
                                   <SignInForm /> 
                               </Card.Text>

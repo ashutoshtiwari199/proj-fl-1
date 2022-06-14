@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 export default class UserActions {
     static addUser(user) {
         let newUser = UserApi.saveUser(user)
-        console.log("Dispatching Add User ...")
+        console.log("Dispatching Add User ...", newUser)
     }
 
     static deleteUser(id) {

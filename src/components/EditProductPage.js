@@ -36,7 +36,7 @@ class EditProductPage extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div id='productPage' data-testid="Edit product page" >
                 <Header />
                 <Container>
                     <Row>
