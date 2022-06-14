@@ -15,7 +15,8 @@ class AddNewProductForm extends React.Component {
                     productDescription: '',
                     manufacturer: '',
                     price: '',
-                    quantity:''
+                    quantity:'',
+                    productImage:''
                 }}
                 validationSchema={Yup.object().shape({
                     productName: Yup.string()
@@ -30,17 +31,22 @@ class AddNewProductForm extends React.Component {
                         .required('Quantity is required'),
                 })}
                 onSubmit={(fields, {props}) => {
+                    console.log(fields)
                     window.onbeforeunload = null
                     this.props.onSave(fields)
                 }}
                 render={({ errors, dirty, touched }) => {
                     window.onbeforeunload = dirty ? e => e : null
                     return (
-                        <Form>
+                        <Form className=''>
                         <div className="form-group">
                             <label htmlFor="productName">Product Name</label>
                             <Field name="productName" type="text" className={'form-control' + (errors.productName && touched.productName ? ' is-invalid' : '')} />
                             <ErrorMessage name="productName" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="productName">Product Image Link</label>
+                            <Field name="productImage" type="text" className={'form-control'} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="productDescription">Product Description</label>
@@ -63,7 +69,7 @@ class AddNewProductForm extends React.Component {
                             <ErrorMessage name="quantity" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary mr-2">Add Product</button>
+                            <button type="submit" onClick={'submit'} className="btn btn-primary mr-2">Add Product</button>
                             <button type="reset" className="btn btn-secondary">Reset</button>
                         </div>
                         

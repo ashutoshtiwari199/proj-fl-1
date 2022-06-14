@@ -33,13 +33,13 @@ class SignInForm extends React.Component {
                     })
                 }}
                 render={({ errors, status, touched }) => (
-                    <Form>
-                        <div className="form-group">
+                    <Form className='signinform'>
+                        <div className="form-group signinform">
                             <label htmlFor="userId">User ID</label>
                             <Field name="userId" type="text" className={'form-control' + (errors.userId && touched.userId ? ' is-invalid' : '')} />
                             <ErrorMessage name="userId" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group signinform">
                             <label htmlFor="password">Password</label>
                             <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                             <ErrorMessage name="password" component="div" className="invalid-feedback" />

@@ -41,7 +41,7 @@ class RegistrationForm extends React.Component {
                     this.props.onSave(fields)
                 }}
                 render={({ errors, status, touched }) => (
-                    <Form>
+                    <Form className='signinform'>
                         <div className="form-group">
                             <label htmlFor="firstName">First Name</label>
                             <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />

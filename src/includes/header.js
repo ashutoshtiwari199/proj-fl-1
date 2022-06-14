@@ -28,31 +28,39 @@ class Header extends React.Component {
     const currentUser = UserStore.getCurrentUser()
     return(
       <div>
-          <Navbar bg="primary" expand="lg" variant="dark">
+          <Navbar bg="primar" className='navbg' expand="lg" variant="dark">
               <Navbar.Brand href="/">Products Inventory</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                  <Nav.Link href="/">About</Nav.Link>
-                  <NavDropdown title="Products" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="/viewProducts">View Products</NavDropdown.Item>
-                    <NavDropdown.Item href="/topViewedProducts">Top Viewed Products</NavDropdown.Item>
-                      {currentUser ? <NavDropdown.Item href="/addNewProduct">Add New Products</NavDropdown.Item> : null}
-                  </NavDropdown>
+                  <Nav.Link href="/about">About</Nav.Link>
+                  <Nav.Link href="/topViewedProducts">Top Viewed Products</Nav.Link>
+                  <Nav.Link href="/viewProducts">View Products</Nav.Link>
+                  {currentUser ?<Nav.Link href="/addNewProduct">Add New Products</Nav.Link>: null }
+                  {/* <NavDropdown title="Products" id="basic-nav-dropdown"> */}
+                    {/* <NavDropdown.Item href="/viewProducts">View Products</NavDropdown.Item> */}
+                    {/* <NavDropdown.Item href="/topViewedProducts">Top Viewed Products</NavDropdown.Item> */}
+                      {/* {currentUser ? <NavDropdown.Item href="/addNewProduct">Add New Products</NavDropdown.Item> : null} */}
+                  {/* </NavDropdown> */}
                 </Nav>
                 {currentUser ? <Navbar.Text><i>Hello,</i>&nbsp; 
                   <a href={`/userDetails/${this.state.user.id}`}>{this.state.user.firstName}&nbsp;</a></Navbar.Text> : null}
               </Navbar.Collapse>
-              {currentUser ? <Button onClick={()=>{
+              {currentUser ? <button className='signinbtn' onClick={()=>{
                 UserActions.signoutUser()
                 this.props.history.push('/')
                 }}>Sign Out
-              </Button> : null}
-              {!currentUser ? <Button onClick={()=>{
+              </button> : null}
+              {!currentUser ? <button className='signinbtn' onClick={()=>{
                 //UserActions.signoutUser()
                 this.props.history.push('/signIn')
                 }}>Sign In
-              </Button> : null}
+              </button> : null}
+              {!currentUser ? <button className='signinbtn' onClick={()=>{
+                //UserActions.signoutUser()
+                this.props.history.push('/register')
+                }}>Sign Up
+              </button> : null}
           </Navbar>
       </div>
   )

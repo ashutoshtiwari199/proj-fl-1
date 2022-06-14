@@ -18,7 +18,8 @@ class EditProductForm extends React.Component {
                     productDescription: this.props.product.productDescription,
                     manufacturer: this.props.product.manufacturer,
                     price: this.props.product.price,
-                    quantity:this.props.product.quantity
+                    quantity:this.props.product.quantity,
+                    productImage: this.props.productImage
                 }}
                 validationSchema={Yup.object().shape({
                     productName: Yup.string()
@@ -42,6 +43,10 @@ class EditProductForm extends React.Component {
                             <label htmlFor="productName">Product Name</label>
                             <Field name="productName" type="text" className={'form-control' + (errors.productName && touched.productName ? ' is-invalid' : '')} />
                             <ErrorMessage name="productName" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="productName">Product Image Link</label>
+                            <Field name="productImage" type="text" className={'form-control' +  (errors.productImage && touched.productImage ? ' is-invalid' : '')} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="productDescription">Product Description</label>

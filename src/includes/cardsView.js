@@ -2,6 +2,8 @@ import React from 'react'
 import Products from '../components/Products'
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
+import { Link } from 'react-router-dom'
+
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
@@ -12,7 +14,9 @@ import UserStore from '../stores/UserStore'
 import Accordion from 'react-bootstrap/Accordion'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
+import CardViewTest from './CardViewTest'
 
+const noImage= `https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg`
 export default class CardsView extends React.Component {
 
   state = {
@@ -23,11 +27,12 @@ export default class CardsView extends React.Component {
       manufacturer: true,
       price: true,
       quantity: true,
-      checkToSelect: true
+      image: true
     }
   }
 
   onChangeHandler = e => {
+    console.log(e)
     const query = e.target.value
         this.setState({query})
   }
@@ -54,82 +59,46 @@ export default class CardsView extends React.Component {
     const currentUser = UserStore.getCurrentUser()
     const products = this.props.products
     const query = this.state.query
-    const filteredProducts = products.filter(product => {
+    const filteredProducts = products && products.filter(product => {
       return product.productName.toLowerCase().indexOf(query.toLowerCase()) !== -1
     })
     return (
-      <Container className="mt-5">
-        <Row>
-          <Col></Col>
-          <Card>
-            <Card.Body>
-              <Col>
-                <Table>
-                  <thead>
-                      <tr>
-                      <th></th>
-                      <th></th>
-                        <th>
-                          <Form>
-                            <Form.Row>
-                              <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Control type="text" placeholder="Search Product" onChange={this.onChangeHandler} />
-                              </Form.Group>
-                            </Form.Row>
-                          </Form>
-                        </th>
-                        <th></th>
-                      </tr>
-                      <tr>
-                        {this.state.columns.productName ? <th>Product Name</th> : null}
-                        {this.state.columns.manufacturer ? <th>Manufacturer</th> : null}
-                        {this.state.columns.price ? <th>Price</th> : null}
-                        {this.state.columns.quantity ? <th>Quantity</th> : null}
-                        {this.state.columns.checkToSelect ? <th>Check to Select</th> : null}
-                      </tr>
-                    </thead>
-                    {filteredProducts.map(product =>
-                      <Products
-                      productId={product.id}
-                      productName={product.productName}
-                      productDescription={product.productDescription}
-                      manufacturer={product.manufacturer}
-                      price={product.price} 
-                      quantity={product.quantity} 
-                      onCheck={this.handleCheck}
-                      columns={this.state.columns}/>
-                    )}
-                </Table>
-              </Col>
-              <Container>
-                <Row>
-                  <Col></Col>
-                  <Col xs={6}>
-                  {
-                    currentUser ? 
-                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Delete Product</Tooltip>}>
-                      <span className="d-inline-block">
-                        <Button variant="outline-danger" onClick={this.onDelete}>
-                          Delete
-                        </Button>
-                      </span>
-                    </OverlayTrigger> : 
-                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Sign In to perform this action!</Tooltip>}>
-                      <span className="d-inline-block">
-                        <Button variant="outline-danger"disabled style={{ pointerEvents: 'none' }}>
-                          Delete
-                        </Button>
-                      </span>
-                    </OverlayTrigger>
-                  }
-                  </Col>
-                  <Col></Col>
-                </Row>
-              </Container>
-            </Card.Body>
+      <div className='d-flex' id='cardContainer' >
+        {/* <CardViewTest /> */}
+       <Container style={{ color:"red", marginRight: '-2%'}} >
+            <Row>
+                <Form.Control className='col-md-3 offset-4 mt-5' type="text" placeholder="Search Product" onChange={this.onChangeHandler} />
+            </Row>
+            <Row>
+            </Row>
+            <Row>
+            {filteredProducts && filteredProducts.map(product => {return(
+              <Card style={{ width: '18rem', margin:'2%' }} className='mt-5' >
+              <Card.Img variant="top" className={ this.state.columns.image ? "" : "d-none"} src={product.productImage !== ' '? product.productImage : noImage} alt='prodImage'/>
+              <Card.Body>
+                  <Card.Title className= { this.state.columns.productName ? "" : "d-none"} >ProductName: {product.productName}</Card.Title>
+                  <Card.Text className= { this.state.columns.manufacturer ? "" : "d-none"} >
+                      Manufracturer: {product.manufacturer}
+                  </Card.Text>
+                  <Card.Text className= { this.state.columns.price ? "" : "d-none"}>
+                  ₹: {product.price}
+                  </Card.Text>
+                  <Card.Text className= { this.state.columns.quantity ? "" : "d-none"} >
+                      Quantity: {product.quantity}
+                  </Card.Text>
+                  { currentUser ? 
+                  <Link to={`/productDetails/${product.id}`} onClick={this.clickHandler}>View Detail</Link>
+                  // <Button variant="outline-danger" onClick={this.onDelete}>Delete</Button>
+                : null  
+                }
+              </Card.Body>
           </Card>
-          <Col>
-          <Accordion>
+            )}
+            )}
+            </Row>
+        </Container> 
+        <Row className='' style={{ marginTop: '8%', marginRight:"2%"}} >
+         <Accordion>
   <Card>
     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Click to Customise Product Fields</Tooltip>}>
     <Card.Header>
@@ -184,14 +153,14 @@ export default class CardsView extends React.Component {
               }
             )
           }} />
-        Check To Select: <Form.Check
+        Image: <Form.Check
           defaultChecked={true}  
           onChange={(evt) => {
             const checked = evt.target.checked
             this.setState(
               prevState => {
                 console.log(prevState)
-                return {columns: {...prevState.columns, checkToSelect: checked}}
+                return {columns: {...prevState.columns, image: checked}}
               }
             )
           }} />
@@ -199,9 +168,8 @@ export default class CardsView extends React.Component {
     </Accordion.Collapse>
   </Card>
   </Accordion>
-          </Col>
-        </Row>
-      </Container>
+         </Row>     
+      </div>
     )
   }
 }
